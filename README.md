@@ -48,26 +48,41 @@ http://127.0.0.1:5000
 DataSaude-Flask/
 
 │── app.py
+
 │── README.md
+
 │── data/
+
 │ └── sample_diseases.csv
+
 │── templates/
+
 │ ├── index.html
+
 │ ├── home.html
+
 │ ├── doencas.html
+
 │ └── sobre.html
+
 │── static/
+
 ├── css/
+
 │ ├── index.css
+
 │ └── home.css
+
 └── images/
+
 └── logo_projeto_exemplo.png
+
 
 
 ---
 
 ## 👨‍💻 Equipe
-Projeto desenvolvido para disciplina de Big Data / Python, Faculdade Estácio – 2025.
+Projeto desenvolvido para disciplina de Big Data / Python, Faculdade Unifanor Wyden – 2025.
 
 ---
 
