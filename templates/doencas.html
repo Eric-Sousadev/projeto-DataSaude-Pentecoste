@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tabela de Doenças</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <a class="download-btn" href="/download">📥 Baixar Planilha CSV</a>
+
+    <h1>Casos por Bairro / Doença</h1>
+
+    <div class="tabela-container">
+        {{ tabela|safe }}
+    </div>
+
+    <a href="/">Voltar</a>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>DataSaúde Pentecoste</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+
+</head>
+
+<body>
+
+    <!-- Light / Dark Mode -->
+    <button id="themeToggle" class="theme-btn">🌙</button>
+
+    <div class="container-landing">
+
+
+        <!-- LOGO DO PROJETO -->
+        <div class="logo-projeto">
+            <img src="/static/images/logo_projeto_exemplo.png" alt="Logo Projeto">
+        </div>
+
+        <h1 class="titulo">DataSaúde Pentecoste</h1>
+
+        <!-- Botão principal -->
+        <a href="/home" class="acessar-btn">Acessar</a>
+
+        <!-- LOGO PREFEITURA -->
+        <div class="logo-prefeitura">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Bras%C3%A3o_de_Pentecoste.svg/640px-Bras%C3%A3o_de_Pentecoste.svg.png" alt="Pentecoste">
+        </div>
+
+        <p class="info">Projeto institucional • Monitoramento de Doenças • Ceará</p>
+
+    </div>
+
+<script>
+    const toggle = document.getElementById("themeToggle");
+    toggle.addEventListener("click", () => {
+        document.body.classList.toggle("dark");
+        toggle.textContent = document.body.classList.contains("dark") ? "☀️" : "🌙";
+    });
+</script>
+
+</body>
+</html>
+

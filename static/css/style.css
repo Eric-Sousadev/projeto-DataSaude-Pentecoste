@@ -1,0 +1,246 @@
+/* ------------------------------------------------------- */
+/*                ESTILO GLOBAL / DARK MODE                */
+/* ------------------------------------------------------- */
+
+body {
+    margin: 0;
+    padding: 0;
+    height: auto;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    background: #eef6ff;
+    transition: background 0.3s, color 0.3s;
+}
+
+.dark {
+    background: #121212;
+    color: white;
+}
+
+/* Botão de tema */
+.theme-btn {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    font-size: 25px;
+    padding: 10px 14px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    background: white;
+    transition: 0.3s;
+}
+
+.dark .theme-btn {
+    background: #333;
+    color: white;
+}
+
+/* ------------------------------------------------------- */
+/*                        LANDING                          */
+/* ------------------------------------------------------- */
+
+.container-landing {
+    width: 85%;
+    max-width: 500px;
+    text-align: center;
+    margin: 60px auto;
+    padding: 35px;
+    border-radius: 20px;
+    background: white;
+    box-shadow: 0 0 25px rgba(0,0,0,0.12);
+    transition: 0.3s;
+}
+
+.dark .container-landing {
+    background: #1f1f1f;
+    box-shadow: 0 0 25px rgba(255,255,255,0.05);
+}
+
+.logo-projeto img {
+    width: 200px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+}
+
+.titulo {
+    margin-top: 10px;
+    font-size: 32px;
+    color: #003f7d;
+}
+
+.dark .titulo {
+    color: #9fc9ff;
+}
+
+.acessar-btn {
+    display: inline-block;
+    background: #007bff;
+    color: white;
+    padding: 15px 45px;
+    border-radius: 12px;
+    font-size: 20px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+    margin: 25px 0;
+}
+
+.acessar-btn:hover {
+    background: #005fcc;
+}
+
+.logo-prefeitura img {
+    width: 140px;
+    margin-top: 25px;
+    border-radius: 15px;
+}
+
+.info {
+    margin-top: 10px;
+    font-size: 14px;
+    opacity: 0.75;
+}
+
+/* ------------------------------------------------------- */
+/*                        HOME / DASHBOARD                 */
+/* ------------------------------------------------------- */
+
+.container-home {
+    width: 90%;
+    max-width: 1100px;
+    margin: auto;
+    padding: 30px 0;
+}
+
+h1.page-title {
+    text-align: center;
+    color: #003f7d;
+    margin-bottom: 30px;
+    font-size: 32px;
+}
+
+.dark h1.page-title {
+    color: #9fc9ff;
+}
+
+/* Cards */
+.cards {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 35px;
+}
+
+.card {
+    background: white;
+    padding: 25px;
+    width: 260px;
+    border-radius: 18px;
+    text-align: center;
+    box-shadow: 0 0 12px rgba(0,0,0,0.1);
+    transition: 0.3s;
+}
+
+.dark .card {
+    background: #1e1e1e;
+    box-shadow: 0 0 15px rgba(255,255,255,0.05);
+}
+
+.card h2 {
+    color: #004b9a;
+}
+
+.dark .card h2 {
+    color: #8ab4ff;
+}
+
+/* Botão de download */
+.download-btn {
+    display: block;
+    margin: 0 auto 30px auto;
+    width: 250px;
+    text-align: center;
+    text-decoration: none;
+    padding: 14px;
+    background: #007bff;
+    color: white;
+    border-radius: 14px;
+    font-size: 18px;
+    transition: 0.3s;
+}
+
+.download-btn:hover {
+    background: #005fcc;
+}
+
+/* Gráficos */
+.grafico-container {
+    background: white;
+    padding: 25px;
+    border-radius: 20px;
+    margin-bottom: 35px;
+    box-shadow: 0 0 12px rgba(0,0,0,0.1);
+}
+.grafico-container.pequeno canvas {
+    max-width: 400px;
+    max-height: 400px;
+    margin: auto;
+    display: block;
+}
+
+.dark .grafico-container {
+    background: #1f1f1f;
+}
+
+/* ------------------------------------------------------- */
+/*                        RESPONSIVO                       */
+/* ------------------------------------------------------- */
+
+@media (max-width: 600px) {
+    .card {
+        width: 100%;
+    }
+
+    .acessar-btn {
+        width: 100%;
+    }
+
+    .download-btn {
+        width: 100%;
+    }
+}
+
+.navbar {
+    width: 100%;
+    background: white;
+    padding: 15px 25px;
+    display: flex;
+    gap: 25px;
+    align-items: center;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.navbar a {
+    color: #004b9a;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.navbar a:hover {
+    opacity: 0.6;
+}
+
+.dark .navbar {
+    background: #1f1f1f;
+    box-shadow: 0 3px 12px rgba(255,255,255,0.05);
+}
+
+.dark .navbar a {
+    color: #8ab4ff;
+}
