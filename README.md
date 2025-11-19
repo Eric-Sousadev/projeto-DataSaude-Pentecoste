@@ -46,6 +46,7 @@ http://127.0.0.1:5000
 
 ## 📁 Estrutura do Projeto
 DataSaude-Flask/
+
 │── app.py
 │── README.md
 │── data/
