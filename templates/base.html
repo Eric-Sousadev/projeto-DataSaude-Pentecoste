@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="light">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title if title else "DataSaúde" }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script defer src="{{ url_for('static', filename='js/script.js') }}"></script>
+</head>
+
+<body>
+
+    {% if not landing %}
+    <nav class="navbar">
+        <div class="landing-bandeira">
+            <img src="/static/images/logos/bandeiraPentecoste.png"
+                 alt="Bandeira de Pentecoste"
+                 style="width: 42px; height: 48px;">
+        </div>
+        <div class="nav-logo">DataSaúde |Pentecoste</div>
+
+        <ul class="nav-links">
+            <li><a href="/home">Dashboard</a></li>
+            <li><a href="/doencas">Doenças</a></li>
+            <li><a href="/campanhas">Campanhas</a></li>
+            <li><a href="/sobre">Sobre</a></li>
+        </ul>
+
+        <button id="themeToggle" class="toggle-btn">🌙 / ☀️</button>
+    </nav>
+    {% endif %}
+
+    <main class="main-content">
+        {% block content %}{% endblock %}
+    </main>
+    
+</body>
+</html>

@@ -1,14 +1,27 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Sobre o Projeto</title>
-    <link rel="stylesheet" href="/static/css/style.css">
-</head>
-<body>
-    <h1>Sobre</h1>
+{% extends "base.html" %}
+{% block content %}
 
-    <p>Projeto DataSaúde para monitoramento de doenças em Pentecoste.</p>
+<h1 class="page-title">Sobre o Projeto</h1>
+<p class="text-align">O DataSaúde nasceu com o objetivo de transformar dados de saúde pública em informação útil, acessível e visual.
+O foco é apoiar decisões, identificar riscos epidemiológicos e facilitar o acompanhamento de casos de arboviroses, internações, mortalidade e outros indicadores essenciais para Pentecoste.</p><br>
+<h2 class="section-title">Funcionalidades Principais</h2>
+<ul class="about-list">
+    <li><strong>Dashboard Interativo:</strong> Visualize dados epidemiológicos através de gráficos dinâmicos e mapas interativos.</li>
+    <li><strong>Tabela de Doenças:</strong> Acesse uma tabela detalhada com informações atualizadas sobre diversas doenças.</li>
+    <li><strong>Campanhas de Saúde:</strong> Fique informado sobre campanhas de vacinação e prevenção promovidas pela Secretaria de Saúde.</li>
+</ul>
+<h2 class="section-title">Tecnologias Utilizadas</h2>
+<p class="text-align">O sistema foi desenvolvido utilizando Flask para o backend, com HTML, CSS e JavaScript no frontend. Bibliotecas como Chart.js foram empregadas para a criação de gráficos interativos, proporcionando uma experiência visual rica e informativa.</p>
+<h2 class="section-title">Equipe de Desenvolvimento</h2>
+<p class="text-align">Este projeto foi desenvolvido por uma equipe dedicada desenvolvedores web , todos comprometidos em melhorar a gestão da saúde em Pentecoste através da tecnologia.</p>
+<br>
+<p class="text-center">
+Este sistema foi desenvolvido para auxiliar na análise das doenças recorrentes de Pentecoste,
+permitindo tomada de decisão mais rápida e eficiente.
+</p>
+<br>
+<p class="text-center">Sugestões, melhorias ou parcerias podem ser enviadas através do e-mail: email@exemplo.com
 
-    <a href="/">Voltar</a>
-</body>
-</html>
+O objetivo é evoluir o DataSaúde continuamente e torná-lo cada vez mais útil para o município.</p>
+
+{% endblock %}

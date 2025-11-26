@@ -1,96 +1,309 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <title>Dashboard - DataSaúde Pentecoste</title>
-    <link rel="stylesheet" href="/static/css/style.css">
+{% extends "base.html" %}
+{% block content %}
 
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-</head>
+<h1 class="page-title">Dashboard Geral</h1>
 
-<body>
-    <nav class="navbar">
-    <a href="/home">Home</a>
-    <a href="/doencas">Doenças</a>
-    <a href="/sobre">Sobre</a>
-    <button id="themeToggle" class="theme-btn">🌙</button>
-</nav>
-
-
-<div class="container">
-
-    <h1>Dashboard de Saúde</h1>
-
-    <div class="cards">
-        <div class="card">
-            <h2>Total de Casos</h2>
-            <p>{{ total_casos }}</p>
-        </div>
-
-        <div class="card">
-            <h2>Doenças Cadastradas</h2>
-            <p>{{ total_doencas }}</p>
-        </div>
-
-        <div class="card">
-            <h2>Municípios Monitorados</h2>
-            <p>{{ municipios }}</p>
-        </div>
+<div class="cards-container">
+    <div class="card">
+        <div class="card-title">Total de Casos</div>
+        <div class="card-value">{{ total_casos }}</div>
     </div>
 
-    <!-- Gráficos -->
-<div class="grafico-container pequeno">
-    <h2>Distribuição de Doenças</h2>
-    <canvas id="graficoPizza"></canvas>
-</div>
-
-
-    <div class="grafico-container">
-        <h2>Casos por Mês</h2>
-        <canvas id="graficoLinha"></canvas>
+    <div class="card">
+        <div class="card-title">Dengue</div>
+        <div class="card-value" style="color: #ff6b6b;">{{ total_dengue }}</div>
     </div>
 
+    <div class="card">
+        <div class="card-title">Chikungunya</div>
+        <div class="card-value" style="color: #ffd43b;">{{ total_chikungunya }}</div>
+    </div>
+
+    <div class="card">
+        <div class="card-title">Zika</div>
+        <div class="card-value" style="color: #a78bfa;">{{ total_zika }}</div>
+    </div>
+
+    <div class="card">
+        <div class="card-title">Municípios</div>
+        <div class="card-value">{{ municipios }}</div>
+    </div>
 </div>
+
+<h2 class="section-title">Análises e Gráficos Epidemiológicos</h2>
+
+<div class="graficos-wrapper">
+    <div class="graph-container">
+        <h3>Casos por Ano</h3>
+        <canvas id="graf1CasosAno"></canvas>
+    </div>
+
+    <div class="graph-container">
+        <h3>Distribuição por Doença</h3>
+        <canvas id="graf2Doenca"></canvas>
+    </div>
+
+    <div class="graph-container">
+        <h3>Top 10 Bairros com Mais Casos</h3>
+        <canvas id="graf3Bairros"></canvas>
+    </div>
+
+    <div class="graph-container">
+        <h3>Impacto das Chuvas nos Casos de Dengue</h3>
+        <canvas id="graf4Chuva"></canvas>
+    </div>
+
+    <div class="graph-container">
+        <h3>Internações por Ano</h3>
+        <canvas id="graf5Internacoes"></canvas>
+    </div>
+
+    <div class="graph-container">
+        <h3>Mortalidade por Ano</h3>
+        <canvas id="graf6Mortes"></canvas>
+    </div>
+
+    <div class="graph-container">
+        <h3>Capacidade vs Atendimentos por Mês</h3>
+        <canvas id="graf7Capacidade"></canvas>
+    </div>
+
+    <div class="graph-container">
+        <h3>Tempo Médio de Espera por Bairro</h3>
+        <canvas id="graf8Tempo"></canvas>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
-    // ------------------------------ //
-    //    GRÁFICO DE PIZZA           //
-    // ------------------------------ //
-    const dadosPizza = {
-        labels: ["Dengue", "Zika", "Chikungunya"],
-        datasets: [{
-            data: [42, 10, 5],
-            backgroundColor: ["#007bff", "#00c851", "#ff4444"]
-        }]
-    };
+    // ===== DADOS DO FLASK =====
+const anos = {{ anos | tojson }};
+const casosAno = {{ casos_ano | tojson }};
 
-    new Chart(document.getElementById("graficoPizza"), {
-        type: "pie",
-        data: dadosPizza
+const distroLabels = {{ distro_labels | tojson }};
+const distroValues = {{ distro_values | tojson }};
+
+const bairros = {{ bairros | tojson }};
+const casosBairros = {{ casos_bairros | tojson }};
+
+const chuvaVals = {{ chuva_vals | tojson }};
+const dengueVals = {{ dengue_vals | tojson }};
+
+const internacoes = {{ internacoes_ano | tojson }};
+const mortes = {{ mortes_ano | tojson }};
+
+const mesesLabels = {{ meses_labels | tojson }};
+const atendimentosMes = {{ atendimentos_mes | tojson }};
+const capacidadeMes = {{ capacidade_mes | tojson }};
+
+const bairrosTempo = {{ bairros_tempo | tojson }};
+const temposEspera = {{ tempos | tojson }};
+
+// ===== CORES EPIDEMIOLÓGICAS =====
+const corDengue = "#FF6B6B";
+const corChikungunya = "#FFD43B";
+const corZika = "#A78BFA";
+const corInternacoes = "#FF922B";
+const corMortes = "#DC2626";
+const corCapacidade = "#4F46E5";
+
+// ===== GRÁFICO 1: CASOS POR ANO =====
+new Chart(document.getElementById("graf1CasosAno"), {
+    type: "bar",
+    data: {
+        labels: anos,
+        datasets: [{
+            label: "Total de Casos",
+            data: casosAno,
+            backgroundColor: "#4F46E5",
+            borderRadius: 6,
+            borderSkipped: false
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        plugins: {
+            legend: { display: true }
+        },
+        scales: {
+            y: { beginAtZero: true }
+        }
+    }
+});
+
+// ===== GRÁFICO 2: DISTRIBUIÇÃO POR DOENÇA =====
+new Chart(document.getElementById("graf2Doenca"), {
+    type: "doughnut",
+    data: {
+        labels: distroLabels,
+        datasets: [{
+            data: distroValues,
+            backgroundColor: [corDengue, corChikungunya, corZika],
+            borderColor: "#fff",
+            borderWidth: 2
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: { position: "bottom" }
+        }
+    }
+});
+
+// ===== GRÁFICO 3: TOP 10 BAIRROS =====
+new Chart(document.getElementById("graf3Bairros"), {
+    type: "bar",
+    data: {
+        labels: bairros,
+        datasets: [{
+            label: "Casos por Bairro",
+            data: casosBairros,
+            backgroundColor: "#10B981",
+            borderRadius: 4
+        }]
+    },
+    options: {
+        indexAxis: "y",
+        responsive: true,
+        plugins: {
+            legend: { display: true }
+        },
+        scales: {
+            x: { beginAtZero: true }
+        }
+    }
+});
+
+// ===== GRÁFICO 4: IMPACTO CHUVAS (SCATTER) =====
+if (chuvaVals.length > 0) {
+    const scatterData = chuvaVals.map((c, i) => ({ x: c, y: dengueVals[i] }));
+    new Chart(document.getElementById("graf4Chuva"), {
+        type: "scatter",
+        data: {
+            datasets: [{
+                label: "Chuva (mm) vs Dengue",
+                data: scatterData,
+                backgroundColor: "rgba(79, 70, 229, 0.6)",
+                borderColor: "#4F46E5",
+                borderWidth: 1,
+                pointRadius: 4
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display: true }
+            },
+            scales: {
+                x: { title: { display: true, text: "Chuva (mm)" } },
+                y: { title: { display: true, text: "Casos Dengue" } }
+            }
+        }
     });
+}
 
-
-    // ------------------------------ //
-    //    GRÁFICO DE LINHA           //
-    // ------------------------------ //
-    const dadosLinha = {
-        labels: ["Jan", "Fev", "Mar", "Abr", "Mai"],
+// ===== GRÁFICO 5: INTERNAÇÕES POR ANO =====
+new Chart(document.getElementById("graf5Internacoes"), {
+    type: "line",
+    data: {
+        labels: anos,
         datasets: [{
-            label: "Casos",
-            data: [10, 20, 42, 18, 9],
-            fill: false,
-            borderColor: "#007bff",
-            tension: 0.3
+            label: "Internações",
+            data: internacoes,
+            borderColor: corInternacoes,
+            backgroundColor: "rgba(255, 146, 43, 0.1)",
+            tension: 0.4,
+            borderWidth: 2,
+            fill: true
         }]
-    };
+    },
+    options: {
+        responsive: true,
+        scales: {
+            y: { beginAtZero: true }
+        }
+    }
+});
 
-    new Chart(document.getElementById("graficoLinha"), {
+// ===== GRÁFICO 6: MORTALIDADE POR ANO =====
+new Chart(document.getElementById("graf6Mortes"), {
+    type: "bar",
+    data: {
+        labels: anos,
+        datasets: [{
+            label: "Óbitos",
+            data: mortes,
+            backgroundColor: corMortes,
+            borderRadius: 6
+        }]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            y: { beginAtZero: true }
+        }
+    }
+});
+
+// ===== GRÁFICO 7: CAPACIDADE VS ATENDIMENTO =====
+if (mesesLabels.length > 0) {
+    new Chart(document.getElementById("graf7Capacidade"), {
         type: "line",
-        data: dadosLinha
+        data: {
+            labels: mesesLabels,
+            datasets: [
+                {
+                    label: "Atendimentos",
+                    data: atendimentosMes,
+                    borderColor: "#06B6D4",
+                    backgroundColor: "rgba(6, 182, 212, 0.1)",
+                    tension: 0.4,
+                    borderWidth: 2,
+                    fill: true
+                },
+                {
+                    label: "Capacidade",
+                    data: capacidadeMes,
+                    borderColor: corCapacidade,
+                    backgroundColor: "rgba(79, 70, 229, 0.1)",
+                    tension: 0.4,
+                    borderWidth: 2,
+                    fill: true
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: { beginAtZero: true }
+            }
+        }
     });
+}
+
+// ===== GRÁFICO 8: TEMPO DE ESPERA POR BAIRRO =====
+new Chart(document.getElementById("graf8Tempo"), {
+    type: "bar",
+    data: {
+        labels: bairrosTempo,
+        datasets: [{
+            label: "Tempo Médio de Espera (min)",
+            data: temposEspera,
+            backgroundColor: "#EC4899",
+            borderRadius: 4
+        }]
+    },
+    options: {
+        indexAxis: "y",
+        responsive: true,
+        scales: {
+            x: { beginAtZero: true }
+        }
+    }
+});
 </script>
 
-</body>
-</html>
-
+{% endblock %}
