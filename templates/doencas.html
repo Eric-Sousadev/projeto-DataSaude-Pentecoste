@@ -3,8 +3,210 @@
 
 <h1 class="page-title">Tabela de Doenças</h1>
 
+<!-- SEçãO DE FILTROS INTERATIVOS -->
+<div class="filters-section">
+  <div class="filters-header">
+    <h3 class="filters-title"> Filtrar Dados</h3>
+  </div>
+
+  <div class="filters-container">
+    <!-- Campo de Busca por Texto -->
+    <div class="filter-group">
+      <label for="searchInput" class="filter-label">Buscar</label>
+      <input 
+        type="text" 
+        id="searchInput" 
+        class="filter-input" 
+        placeholder="Digite para buscar..."
+      >
+    </div>
+
+    <!-- Filtro por Ano -->
+    <div class="filter-group">
+      <label for="yearFilter" class="filter-label">Ano</label>
+      <select id="yearFilter" class="filter-select">
+        <option value="">Todos</option>
+        <option value="2021">2021</option>
+        <option value="2022">2022</option>
+        <option value="2023">2023</option>
+      </select>
+    </div>
+
+    <!-- Filtro por Mês -->
+    <div class="filter-group">
+      <label for="monthFilter" class="filter-label">Mês</label>
+      <select id="monthFilter" class="filter-select">
+        <option value="">Todos</option>
+        <option value="1">Janeiro</option>
+        <option value="2">Fevereiro</option>
+        <option value="3">Março</option>
+        <option value="4">Abril</option>
+        <option value="5">Maio</option>
+        <option value="6">Junho</option>
+        <option value="7">Julho</option>
+        <option value="8">Agosto</option>
+        <option value="9">Setembro</option>
+        <option value="10">Outubro</option>
+        <option value="11">Novembro</option>
+        <option value="12">Dezembro</option>
+      </select>
+    </div>
+
+    <!-- (campo Doença removido) -->
+
+    <!-- Filtro por Bairro -->
+    <div class="filter-group">
+      <label for="neighborhoodFilter" class="filter-label">Bairro</label>
+      <select id="neighborhoodFilter" class="filter-select">
+        <option value="">Todos</option>
+      </select>
+    </div>
+
+    <!-- Botão Limpar -->
+    <div class="filter-group filter-button-group">
+      <button id="clearFilters" class="filter-btn-clear"> Limpar Filtros</button>
+    </div>
+  </div>
+
+  <div class="filter-info">
+    <span id="resultCount">Mostrando todos os registros</span>
+  </div>
+</div>
+
 <div class="tabela-container">
     {{ tabela|safe }}
 </div>
+
+<script>
+// ===============================================
+// SISTEMA DE FILTROS INTERATIVOS
+// ===============================================
+
+document.addEventListener('DOMContentLoaded', function() {
+  // ===== ELEMENTOS DO DOM =====
+  const searchInput = document.getElementById('searchInput');
+  const yearFilter = document.getElementById('yearFilter');
+  const monthFilter = document.getElementById('monthFilter');
+  const neighborhoodFilter = document.getElementById('neighborhoodFilter');
+  const clearButton = document.getElementById('clearFilters');
+  const resultCount = document.getElementById('resultCount');
+  const table = document.querySelector('table');
+
+  // Se a tabela não existir, sair
+  if (!table) return;
+
+  // ===== DADOS ORIGINAIS =====
+  let originalRows = [];
+  let allNeighborhoods = new Set();
+
+  // ===== INICIALIZAçãO =====
+  function initializeFilters() {
+    // Capturar todas as linhas da tabela (excluindo header)
+    const tbody = table.querySelector('tbody');
+    if (!tbody) return;
+    
+    originalRows = Array.from(tbody.querySelectorAll('tr'));
+    
+    // Extrair bairros unicos dinamicamente
+    originalRows.forEach(row => {
+      const cells = row.querySelectorAll('td');
+      if (cells.length > 0) {
+        // bairro esta no indice 3
+        const bairroCell = cells[3];
+        if (bairroCell) {
+          allNeighborhoods.add(bairroCell.textContent.trim());
+        }
+      }
+    });
+
+    // Popular dropdown de bairros
+    populateNeighborhoodFilter();
+  }
+
+  // ===== POPULAR DROPDOWN DE BAIRROS =====
+  function populateNeighborhoodFilter() {
+    const neighborhoods = Array.from(allNeighborhoods).sort();
+    
+    neighborhoods.forEach(neighborhood => {
+      if (neighborhood) {
+        const option = document.createElement('option');
+        option.value = neighborhood;
+        option.textContent = neighborhood;
+        neighborhoodFilter.appendChild(option);
+      }
+    });
+  }
+
+  // ===== APLICAR FILTROS =====
+  function applyFilters() {
+    const searchTerm = searchInput.value.toLowerCase();
+    const yearValue = yearFilter.value;
+    const monthValue = monthFilter.value;
+    // disease filter removed — sempre true
+    const neighborhoodValue = neighborhoodFilter.value;
+
+    let visibleCount = 0;
+
+    originalRows.forEach(row => {
+      const cells = row.querySelectorAll('td');
+      const rowText = row.textContent.toLowerCase();
+
+      // Extrair valores da linha (indices corretos)
+      const ano = cells[1]?.textContent.trim() || '';
+      const mes = cells[2]?.textContent.trim() || '';
+      const bairro = cells[3]?.textContent.trim() || '';
+      const casos_dengue = cells[4]?.textContent.trim() || '0';
+      const casos_chikungunya = cells[5]?.textContent.trim() || '0';
+      const casos_zika = cells[6]?.textContent.trim() || '0';
+
+      // filtro de doença removido — não filtra por casos específicos
+      let matchDisease = true;
+
+      // Aplicar filtros
+      const matchSearch = rowText.includes(searchTerm);
+      const matchYear = !yearValue || ano === yearValue;
+      const matchMonth = !monthValue || mes === monthValue;
+      const matchNeighborhood = !neighborhoodValue || bairro === neighborhoodValue;
+
+      const isVisible = matchSearch && matchYear && matchMonth && matchDisease && matchNeighborhood;
+
+      row.style.display = isVisible ? '' : 'none';
+      if (isVisible) visibleCount++;
+    });
+
+    // Atualizar contador
+    updateResultCount(visibleCount, originalRows.length);
+  }
+
+  // ===== ATUALIZAR CONTADOR DE RESULTADOS =====
+  function updateResultCount(visible, total) {
+    if (visible === total) {
+      resultCount.textContent = `Mostrando todos os ${total} registros`;
+    } else {
+      resultCount.textContent = `Mostrando ${visible} de ${total} registros`;
+    }
+  }
+
+  // ===== LIMPAR FILTROS =====
+  function clearAllFilters() {
+    searchInput.value = '';
+    yearFilter.value = '';
+    monthFilter.value = '';
+    diseaseFilter.value = '';
+    neighborhoodFilter.value = '';
+    applyFilters();
+  }
+
+  // ===== EVENT LISTENERS =====
+    searchInput.addEventListener('keyup', applyFilters);
+  yearFilter.addEventListener('change', applyFilters);
+  monthFilter.addEventListener('change', applyFilters);
+  neighborhoodFilter.addEventListener('change', applyFilters);
+  clearButton.addEventListener('click', clearAllFilters);
+
+  // ===== INICIAR =====
+  initializeFilters();
+});
+</script>
 
 {% endblock %}
