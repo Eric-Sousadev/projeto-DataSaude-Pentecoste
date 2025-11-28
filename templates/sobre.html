@@ -2,6 +2,11 @@
 {% block content %}
 
 <h1 class="page-title">Sobre o Projeto</h1>
+
+<div class="project-logo">
+    <img src="{{ url_for('static', filename='images/logos/logo_DataSaude.png') }}" alt="Logo DataSaúde">
+</div>
+
 <p class="text-align">O DataSaúde nasceu com o objetivo de transformar dados de saúde pública em informação útil, acessível e visual.
 O foco é apoiar decisões, identificar riscos epidemiológicos e facilitar o acompanhamento de casos de arboviroses, internações, mortalidade e outros indicadores essenciais para Pentecoste.</p><br>
 <h2 class="section-title">Funcionalidades Principais</h2>
@@ -13,7 +18,80 @@ O foco é apoiar decisões, identificar riscos epidemiológicos e facilitar o ac
 <h2 class="section-title">Tecnologias Utilizadas</h2>
 <p class="text-align">O sistema foi desenvolvido utilizando Flask para o backend, com HTML, CSS e JavaScript no frontend. Bibliotecas como Chart.js foram empregadas para a criação de gráficos interativos, proporcionando uma experiência visual rica e informativa.</p>
 <h2 class="section-title">Equipe de Desenvolvimento</h2>
-<p class="text-align">Este projeto foi desenvolvido por uma equipe dedicada desenvolvedores web , todos comprometidos em melhorar a gestão da saúde em Pentecoste através da tecnologia.</p>
+<p class="text-align">Este projeto foi desenvolvido por uma equipe dedicada de desenvolvedores web, todos comprometidos em melhorar a gestão da saúde em Pentecoste através da tecnologia.</p>
+
+<div class="team-grid">
+    <div class="team-member">
+        <div class="member-avatar">
+            <img src="\static\images\membros\Andre.jpg" alt="André Luis">
+        </div>
+        <h3 class="member-name">André Luis</h3>
+        <a href="https://github.com/andreluis1302" class="member-link" target="_blank">
+            <span class="github-icon">🔗</span> GitHub
+        </a>
+    </div>
+
+    <div class="team-member">
+        <div class="member-avatar">
+            <img src="\static\images\membros\Samuel.jpg" alt="Samuel Pereira">
+        </div>
+        <h3 class="member-name">Samuel Pereira</h3>
+        <a href="https://github.com/muelzinm1" class="member-link" target="_blank">
+            <span class="github-icon">🔗</span> GitHub
+        </a>
+    </div>
+
+    <div class="team-member">
+        <div class="member-avatar">
+            <img src="\static\images\membros\Eric-Sousa.jpg" alt="Eric de Sousa">
+        </div>
+        <h3 class="member-name">Eric de Sousa</h3>
+        <a href="https://github.com/Eric-Sousadev" class="member-link" target="_blank">
+            <span class="github-icon">🔗</span> GitHub
+        </a>
+    </div>
+
+    <div class="team-member">
+        <div class="member-avatar">
+            <img src="\static\images\membros\Igor.jpg" alt="Igor Nobre">
+        </div>
+        <h3 class="member-name">Igor Nobre</h3>
+        <a href="https://share.google/GYWQiZr3PkSn9HYPT" class="member-link" target="_blank">
+            <span class="github-icon">🔗</span> GitHub
+        </a>
+    </div>
+
+    <div class="team-member">
+        <div class="member-avatar">
+            <img src="\static\images\membros\Haylena.jpg" alt="Haylena Teles">
+        </div>
+        <h3 class="member-name">Haylena Teles</h3>
+        <a href="https://github.com/haylenateles" class="member-link" target="_blank">
+            <span class="github-icon">🔗</span> GitHub
+        </a>
+    </div>
+
+    <div class="team-member">
+        <div class="member-avatar">
+            <img src="/static/images/membros/jose-Paulo.jpg" alt="Jose Paulo">
+        </div>
+        <h3 class="member-name">Jose Paulo</h3>
+        <a href="https://github.com/JosePaulo05" class="member-link" target="_blank">
+            <span class="github-icon">🔗</span> GitHub
+        </a>
+    </div>
+
+    <div class="team-member">
+        <div class="member-avatar">
+            <img src="\static\images\membros\Alisson.jpg" alt="Alison Vinícius">
+        </div>
+        <h3 class="member-name">Alison Vinícius</h3>
+        <a href="https://github.com/alisonauta" class="member-link" target="_blank">
+            <span class="github-icon">🔗</span> GitHub
+        </a>
+    </div>
+</div>
+
 <br>
 <p class="text-center">
 Este sistema foi desenvolvido para auxiliar na análise das doenças recorrentes de Pentecoste,

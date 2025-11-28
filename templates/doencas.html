@@ -64,7 +64,10 @@
 
     <!-- Botão Limpar -->
     <div class="filter-group filter-button-group">
-      <button id="clearFilters" class="filter-btn-clear"> Limpar Filtros</button>
+      <div style="display:flex; gap:10px;">
+        <button id="applyFilters" class="toggle-btn">Aplicar Filtros</button>
+        <button id="clearFilters" class="filter-btn-clear">Limpar Filtros</button>
+      </div>
     </div>
   </div>
 
@@ -89,6 +92,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const monthFilter = document.getElementById('monthFilter');
   const neighborhoodFilter = document.getElementById('neighborhoodFilter');
   const clearButton = document.getElementById('clearFilters');
+  const applyButton = document.getElementById('applyFilters');
   const resultCount = document.getElementById('resultCount');
   const table = document.querySelector('table');
 
@@ -142,39 +146,51 @@ document.addEventListener('DOMContentLoaded', function() {
     const searchTerm = searchInput.value.toLowerCase();
     const yearValue = yearFilter.value;
     const monthValue = monthFilter.value;
-    // disease filter removed — sempre true
     const neighborhoodValue = neighborhoodFilter.value;
 
     let visibleCount = 0;
+
+    // helper: compara anos mesmo se tabela mostrar '2023.0' ou '2023'
+    function matchesYear(cellYearText, filterYear) {
+      if (!filterYear) return true;
+      if (!cellYearText) return false;
+      const parsed = parseInt(cellYearText, 10);
+      const fy = parseInt(filterYear, 10);
+      if (!isNaN(parsed) && !isNaN(fy)) return parsed === fy;
+      // fallback: comparar conteúdo textual
+      return cellYearText.toString().includes(filterYear.toString());
+    }
+
+    // helper: compara mês (tenta converter para número também)
+    function matchesMonth(cellMonthText, filterMonth) {
+      if (!filterMonth) return true;
+      if (!cellMonthText) return false;
+      const parsed = parseInt(cellMonthText, 10);
+      const fm = parseInt(filterMonth, 10);
+      if (!isNaN(parsed) && !isNaN(fm)) return parsed === fm;
+      return cellMonthText.toString().includes(filterMonth.toString());
+    }
 
     originalRows.forEach(row => {
       const cells = row.querySelectorAll('td');
       const rowText = row.textContent.toLowerCase();
 
       // Extrair valores da linha (indices corretos)
-      const ano = cells[1]?.textContent.trim() || '';
-      const mes = cells[2]?.textContent.trim() || '';
-      const bairro = cells[3]?.textContent.trim() || '';
-      const casos_dengue = cells[4]?.textContent.trim() || '0';
-      const casos_chikungunya = cells[5]?.textContent.trim() || '0';
-      const casos_zika = cells[6]?.textContent.trim() || '0';
+      const anoCell = (cells[1]?.textContent || '').trim();
+      const mesCell = (cells[2]?.textContent || '').trim();
+      const bairro = (cells[3]?.textContent || '').trim();
 
-      // filtro de doença removido — não filtra por casos específicos
-      let matchDisease = true;
-
-      // Aplicar filtros
       const matchSearch = rowText.includes(searchTerm);
-      const matchYear = !yearValue || ano === yearValue;
-      const matchMonth = !monthValue || mes === monthValue;
+      const matchYear = matchesYear(anoCell, yearValue);
+      const matchMonth = matchesMonth(mesCell, monthValue);
       const matchNeighborhood = !neighborhoodValue || bairro === neighborhoodValue;
 
-      const isVisible = matchSearch && matchYear && matchMonth && matchDisease && matchNeighborhood;
+      const isVisible = matchSearch && matchYear && matchMonth && matchNeighborhood;
 
       row.style.display = isVisible ? '' : 'none';
       if (isVisible) visibleCount++;
     });
 
-    // Atualizar contador
     updateResultCount(visibleCount, originalRows.length);
   }
 
@@ -192,16 +208,15 @@ document.addEventListener('DOMContentLoaded', function() {
     searchInput.value = '';
     yearFilter.value = '';
     monthFilter.value = '';
-    diseaseFilter.value = '';
     neighborhoodFilter.value = '';
-    applyFilters();
+    // mostrar todas as linhas e atualizar contador
+    originalRows.forEach(row => row.style.display = '');
+    updateResultCount(originalRows.length, originalRows.length);
   }
 
   // ===== EVENT LISTENERS =====
-    searchInput.addEventListener('keyup', applyFilters);
-  yearFilter.addEventListener('change', applyFilters);
-  monthFilter.addEventListener('change', applyFilters);
-  neighborhoodFilter.addEventListener('change', applyFilters);
+  // agora os filtros só são aplicados ao clicar em 'Aplicar Filtros'
+  if (applyButton) applyButton.addEventListener('click', applyFilters);
   clearButton.addEventListener('click', clearAllFilters);
 
   // ===== INICIAR =====

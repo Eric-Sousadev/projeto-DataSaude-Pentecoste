@@ -668,9 +668,60 @@ table.tabela tr:hover {
     .help-title { padding-left: 4px }
 }
 
+/* =============================== */
+/* ---- Seção de Sintomas ------ */
+/* =============================== */
+.sintomas-section {
+    margin: 40px auto;
+    padding: 20px;
+    max-width: 1200px;
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.04);
+}
+
+.sintomas-title {
+    font-size: 1.5rem;
+    margin: 0 0 18px 8px;
+    color: var(--text);
+}
+
+.sintomas-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* empilha cada card em uma linha */
+    gap: 18px;
+}
+
+.sintoma-card {
+    display: flex;
+    gap: 12px;
+    padding: 14px;
+    border-radius: 12px;
+    background: linear-gradient(180deg, rgba(79,70,229,0.03), rgba(79,70,229,0.01));
+    border: 1px solid rgba(79,70,229,0.06);
+}
+
+.sintoma-media { flex: 0 0 140px; display:flex; align-items:center; justify-content:center }
+.virus-img { width: 140px; height: 100px; object-fit:contain; border-radius:8px; }
+
+.sintoma-body { flex: 1; overflow:hidden }
+.sintoma-name { margin:0 0 8px 0; font-size:1.05rem; color:var(--text); }
+.sintoma-text { font-size:0.95rem; color:var(--text-muted); line-height:1.35; }
+.sintoma-text ul { margin:6px 0 12px 18px; }
+.sintoma-text p { margin:8px 0 6px 0; }
+.sintoma-text .alert { color: var(--text); font-weight:700; }
+
+/* mantemos comportamento responsivo simples: já está empilhado por padrão */
+
+@media (max-width: 640px) {
+    .sintomas-grid { grid-template-columns: 1fr; }
+    .sintoma-media { flex: 0 0 110px }
+    .virus-img { width: 110px; height: 80px }
+}
+
  
 
-/* ===== SE��O DE FILTROS ===== */
+/* ===== SE��O DE FILTROS ===== */
 .filters-section {
   margin: 30px 0;
   background: linear-gradient(135deg, rgba(45, 143, 67, 0.04) 0%, rgba(34, 110, 60, 0.02) 100%);
@@ -768,7 +819,7 @@ table.tabela tr:hover {
   box-shadow: 0 0 0 2px rgba(45, 143, 67, 0.12);
 }
 
-/* Bot�o Limpar */
+/* Bot�o Limpar */
 .filter-btn-clear {
   padding: 10px 18px;
   background: #dc2626;
@@ -836,5 +887,129 @@ table.tabela tr:hover {
   .filter-select {
     font-size: 0.9rem;
     padding: 8px 12px;
+  }
+}
+
+/* ===== LOGO DO PROJETO ===== */
+.project-logo { text-align: center; margin: 12px 0 22px 0; }
+.project-logo img { display: inline-block; width: auto; max-width: 220px; height: auto; border-radius: 8px; }
+
+/* ===== SEÇÃO EQUIPE ===== */
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 28px;
+    margin: 32px 0;
+    padding: 20px;
+}
+
+.team-member {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 16px;
+  border-radius: 12px;
+  background: var(--bg-secondary);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.team-member:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+}
+
+.member-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: 12px;
+  border: 3px solid var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(34, 126, 98, 0.1), rgba(79, 70, 229, 0.1));
+}
+
+.member-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.member-name {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 8px 0 12px 0;
+  word-break: break-word;
+}
+
+.member-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: var(--accent);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.member-link:hover {
+  background: var(--accent-hover, var(--accent));
+  transform: scale(1.05);
+}
+
+.github-icon {
+  font-size: 1.1rem;
+}
+
+@media (max-width: 768px) {
+  .team-grid {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 20px;
+    padding: 16px;
+  }
+
+  .member-avatar {
+    width: 100px;
+    height: 100px;
+    border-width: 2px;
+  }
+
+  .member-name {
+    font-size: 0.95rem;
+  }
+
+  .member-link {
+    font-size: 0.85rem;
+    padding: 6px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .team-grid {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 16px;
+    padding: 12px;
+  }
+
+  .member-avatar {
+    width: 90px;
+    height: 90px;
+  }
+
+  .member-name {
+    font-size: 0.9rem;
+  }
+
+  .member-link {
+    font-size: 0.8rem;
+    padding: 5px 10px;
   }
 }

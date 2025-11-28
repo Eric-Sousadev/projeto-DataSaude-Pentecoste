@@ -197,7 +197,12 @@ def doencas():
         colunas_exibir = [col for col in colunas_exibir if col in df.columns]
         
         if colunas_exibir:
-            df_exibir = df[colunas_exibir].head(100)
+            # ordenar por ano (decrescente) para trazer anos mais recentes no topo
+            if 'ano' in df.columns:
+                df_exibir = df[colunas_exibir].sort_values(by='ano', ascending=False)
+            else:
+                df_exibir = df[colunas_exibir]
+            # mostrar todas as linhas (o dataset tem ~850 linhas; enviar para o cliente é aceitável)
             tabela_html = df_exibir.to_html(classes="table-auto w-full", index=False)
         else:
             tabela_html = df.head(100).to_html(classes="table-auto w-full", index=False)

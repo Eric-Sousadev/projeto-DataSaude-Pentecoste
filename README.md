@@ -27,7 +27,7 @@ py -m venv venv
 
 
 ### 3. Ativar (Windows)
-venv\Scripts\activate
+ 
 
 
 ### 4. Instalar dependências
