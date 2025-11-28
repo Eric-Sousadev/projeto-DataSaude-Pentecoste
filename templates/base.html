@@ -7,7 +7,7 @@
     <script defer src="{{ url_for('static', filename='js/script.js') }}"></script>
 </head>
 
-<body>
+<body id="top">
 
     {% if not landing %}
     <nav class="navbar">
@@ -16,7 +16,8 @@
                  alt="Bandeira de Pentecoste"
                  style="width: 42px; height: 48px;">
         </div>
-        <div class="nav-logo">DataSaúde |Pentecoste</div>
+
+        <div class="nav-logo">DataSaúde | Pentecoste</div>
 
         <ul class="nav-links">
             <li><a href="/home">Dashboard</a></li>
@@ -32,6 +33,18 @@
     <main class="main-content">
         {% block content %}{% endblock %}
     </main>
-    
+
+    <!-- ========================= -->
+    <!--         RODAPÉ FINAL      -->
+    <!-- ========================= -->
+
+    <footer class="footer">
+        <div class="footer-buttons">
+            <a href="#top" class="footer-btn">Voltar ao Topo</a>
+        </div>
+
+        <p class="footer-text">© 2025 DataSaúde Pentecoste | Todos os direitos reservados.</p>
+    </footer>
+
 </body>
 </html>
