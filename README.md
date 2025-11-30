@@ -72,45 +72,35 @@ Projeto-DataSaude/
 ├── requirements.txt
 │
 ├── data/
+│   ├── base_arboviroses_3anos.csv
 │   └── sample_diseases.csv
-│   └── base_arboviroses_3anos.csv
-├── templates/
-│   ├── layout.html
-│   ├── index.html
-│   ├── home.html
-│   ├── doencas.html
-│   ├── campanhas.html
-│   └── sobre.html
+│
+├── db/
 │
 ├── static/
 │   ├── css/
-│   │   ├── style.css
-│   │
-│   ├── js/
-│   │   └── script.js
+│   │   └── style.css
 │   │
 │   ├── images/
+│   │   ├── campanhasImg/
+│   │   ├── imgSite/
 │   │   ├── logos/
-│   │   │   
-│   │   ├── campanhas img/   
-│   │   │
-│   │   └── imgSite/
-│   │   │   
-│   │   └── logos/
-│   │   |
-|   |   └── membros/     
-│   │      
+│   │   └── membros/
+│   │
+│   └── js/
+│       └── script.js
+│
 ├── templates/
-|   |
-|   ├── base.html
-|   ├── campanhas.html
-|   ├── doencas.html
-|   ├── home.html
-|   ├── index.html
-|   ├── sobre.html
-├── venv/
-├──app.py
-├──README.md
+│   ├── base.html
+│   ├── campanhas.html
+│   ├── doencas.html
+│   ├── home.html
+│   ├── index.html
+│   └── sobre.html
+│
+└── venv/
+|-app.py
+|-README.md
 
 ---
 
