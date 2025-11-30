@@ -65,39 +65,52 @@ http://127.0.0.1:5000
 ----
 
 ## 📁 Estrutura do Projeto
-DataSaude-Flask/
-
-│── app.py
-
-│── README.md
-
-│── data/
-
-│ └── sample_diseases.csv
-
-│── templates/
-
-│ ├── index.html
-
-│ ├── home.html
-
-│ ├── doencas.html
-
-│ └── sobre.html
-
-│── static/
-
-├── css/
-
-│ ├── index.css
-
-│ └── home.css
-
-└── images/
-
-└── logo_projeto_exemplo.png
-
-
+Projeto-DataSaude/
+│
+├── app.py
+├── README.md
+├── requirements.txt
+│
+├── data/
+│   └── sample_diseases.csv
+│   └── base_arboviroses_3anos.csv
+├── templates/
+│   ├── layout.html
+│   ├── index.html
+│   ├── home.html
+│   ├── doencas.html
+│   ├── campanhas.html
+│   └── sobre.html
+│
+├── static/
+│   ├── css/
+│   │   ├── style.css
+│   │
+│   ├── js/
+│   │   └── script.js
+│   │
+│   ├── images/
+│   │   ├── logos/
+│   │   │   
+│   │   ├── campanhas img/   
+│   │   │
+│   │   └── imgSite/
+│   │   │   
+│   │   └── logos/
+│   │   |
+|   |   └── membros/     
+│   │      
+├── templates/
+|   |
+|   ├── base.html
+|   ├── campanhas.html
+|   ├── doencas.html
+|   ├── home.html
+|   ├── index.html
+|   ├── sobre.html
+├── venv/
+├──app.py
+├──README.md
 
 ---
 
