@@ -14,7 +14,27 @@ Sistema acadêmico para análise de doenças recorrentes no município de Pentec
 ---
 
 ## 📦 Como rodar o projeto
+🐍 0️⃣ Antes de tudo: qual comando Python usar no seu PC?
 
+Dependendo da instalação do Python, o comando pode ser:
+
+Tipo de Instalação	   |Comando correto
+Python.org oficial	   |py ou python
+Microsoft Store	      |python
+Instalações antigas	  |python3
+PCs com conflito	     |py -3
+
+👉 Para descobrir qual funciona, rode no CMD:
+
+py --version
+python --version
+python3 --version
+py -3 --version
+
+
+Use o comando que retornar a versão do Python.
+
+💡Se o seu PC só funcionar com py, troque python → py em tudo.
 ### 1. Clonar o repositório
 git clone (https://github.com/Eric-Sousadev/projeto-DataSaude-Pentecoste.git)
 
@@ -28,7 +48,7 @@ py -m venv venv
 
 ### 3. Ativar (Windows)
  
-
+venv\Scripts\activate
 
 ### 4. Instalar dependências
 py -m pip install flask pandas
