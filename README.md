@@ -4,34 +4,35 @@ Sistema acadêmico para análise de doenças recorrentes no município de Pentec
 ---
 
 ## 🚀 Tecnologias
+```txt
 - Python 3.14
 - Flask
 - Pandas
 - Chart.js
 - HTML5 + CSS3
 - Ambiente Virtual (venv)
-
+```
 ---
 
 ## 📦 Como rodar o projeto
 🐍 0️⃣ Antes de tudo: qual comando Python usar no seu PC?
 
 Dependendo da instalação do Python, o comando pode ser:
-
+```txt
 Tipo de Instalação	   |Comando correto
 Python.org oficial	   |py ou python
 Microsoft Store	      |python
 Instalações antigas	  |python3
 PCs com conflito	     |py -3
-
+```
 👉 Para descobrir qual funciona, rode no CMD:
-
+```txt
 py --version
 python --version
 python3 --version
 py -3 --version
 
-
+```
 Use o comando que retornar a versão do Python.
 
 💡Se o seu PC só funcionar com py, troque python → py em tudo.
@@ -65,6 +66,7 @@ http://127.0.0.1:5000
 ----
 
 ## 📁 Estrutura do Projeto
+```txt
 Projeto-DataSaude/
 │
 ├── app.py
@@ -101,7 +103,7 @@ Projeto-DataSaude/
 └── venv/
 |-app.py
 |-README.md
-
+```
 ---
 
 ## 👨‍💻 Equipe
